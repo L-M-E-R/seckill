@@ -30,7 +30,7 @@ public class SecurityUtils
         return id != null && 1 == id;
     }
 
-    public static Integer getUserId() {
+    public static Long getUserId() {
         return getLoginUser().getUser().getId();
     }
 }

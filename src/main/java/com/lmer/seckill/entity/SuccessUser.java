@@ -23,17 +23,17 @@ import lombok.experimental.Accessors;
 @TableName("success_user")
 public class SuccessUser implements Serializable {
     @TableId
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id
      */
-    private Integer userId;
+    private Long userId;
     
     /**
      * 产品id
      */
-    private Integer proId;
+    private Long proId;
     
 
 

@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @TableName("sys_user")
 public class User implements Serializable{
     @TableId
-    private Integer id;
+    private Long id;
 
     /**
      * 用户名

@@ -15,5 +15,5 @@ public interface SkService {
      * @param proId 商品id
      * @return
      */
-    ResponseResult sk(Integer userId, Long proId);
+    ResponseResult sk(Long userId, Long proId);
 }

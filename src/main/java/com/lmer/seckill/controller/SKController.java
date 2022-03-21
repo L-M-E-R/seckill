@@ -30,7 +30,7 @@ public class SKController {
 
     @GetMapping("/{proId}")
     public ResponseResult doSk(@PathVariable Long proId){
-        Integer userId = SecurityUtils.getUserId();
+        Long userId = SecurityUtils.getUserId();
         // 如果5秒之内没有拿到令牌, 就认为当前系统繁忙, 直接进行返回
         boolean acquire = rateLimiter.tryAcquire(1, 5, TimeUnit.SECONDS);
         if(!acquire){

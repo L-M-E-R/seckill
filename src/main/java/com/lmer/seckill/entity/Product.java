@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @TableName("product")
 public class Product implements Serializable {
     @TableId
-    private Integer id;
+    private Long id;
 
     /**
      * 产品名字
