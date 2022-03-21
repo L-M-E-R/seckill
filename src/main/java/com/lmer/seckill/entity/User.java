@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user")
-public class User  {
+public class User implements Serializable{
     @TableId
     private Integer id;
 
