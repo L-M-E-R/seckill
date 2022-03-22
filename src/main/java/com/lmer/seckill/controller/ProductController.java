@@ -31,4 +31,6 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
+
+    // TODO 查询是否秒杀成功
 }

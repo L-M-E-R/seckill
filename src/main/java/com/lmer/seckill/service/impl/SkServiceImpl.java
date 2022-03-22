@@ -11,11 +11,13 @@ import com.lmer.seckill.callBack.MyCallBack;
 import com.lmer.seckill.entity.ResponseResult;
 import com.lmer.seckill.entity.SkMessage;
 import com.lmer.seckill.service.SkService;
+import com.lmer.seckill.utils.RedisCache;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Service
 public class SkServiceImpl implements SkService {
@@ -25,6 +27,9 @@ public class SkServiceImpl implements SkService {
 
     @Autowired
     private MyCallBack myCallBack;
+
+    @Autowired
+    private RedisCache redisCache;
 
     /**
      * 设置rabbitTemplate的回调对象
@@ -45,7 +50,16 @@ public class SkServiceImpl implements SkService {
         message.setUserId(userId)
                         .setProId(proId);
 
+        // 每个人只能秒杀成功一次, 先进行判断, 秒杀成功后就不能再秒杀了
+        Set<Long> sucList = redisCache.getCacheSet("sk:success:" + proId);
+        if (sucList.contains(userId)) {
+            return ResponseResult.errorResult(501,"您已经抢购成功商品, 请勿多次参加");
+        }
+
         rabbitTemplate.convertAndSend("SK", "A", JSON.toJSON(message));
-        return null;
+
+        // 发送秒杀消息后该干什么
+
+        return ResponseResult.okResult();
     }
 }

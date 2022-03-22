@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lmer.seckill.entity.Product;
 import com.lmer.seckill.entity.ResponseResult;
 
+import java.util.Set;
+
 
 /**
  * (Product)表服务接口
@@ -25,4 +27,15 @@ public interface ProductService extends IService<Product> {
      * @return
      */
     ResponseResult addProduct(Product product);
+
+    /**
+     * 更新产品数据
+     */
+    void updateSuc(Long proId, Set<Long> sucList);
+
+    /**
+     * @param proId
+     * @param num
+     */
+    void updateProNum(Long proId, Integer num);
 }
