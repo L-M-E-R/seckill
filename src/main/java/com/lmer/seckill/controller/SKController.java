@@ -7,6 +7,7 @@
 package com.lmer.seckill.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
+import com.lmer.seckill.annotation.RateLimit;
 import com.lmer.seckill.entity.ResponseResult;
 import com.lmer.seckill.service.SkService;
 import com.lmer.seckill.utils.SecurityUtils;
@@ -25,17 +26,11 @@ public class SKController {
     @Autowired
     public SkService skService;
 
-    @Autowired
-    public RateLimiter rateLimiter;
 
     @GetMapping("/{proId}")
+    @RateLimit(limit = 1000)
     public ResponseResult doSk(@PathVariable Long proId){
         Long userId = SecurityUtils.getUserId();
-        // 如果5秒之内没有拿到令牌, 就认为当前系统繁忙, 直接进行返回
-        boolean acquire = rateLimiter.tryAcquire(1, 5, TimeUnit.SECONDS);
-        if(!acquire){
-            return ResponseResult.errorResult(500,"系统繁忙, 请稍后再试");
-        }
         return skService.sk(userId, proId);
     }
 

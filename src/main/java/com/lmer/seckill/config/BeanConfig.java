@@ -17,10 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 public class BeanConfig {
 
-    @Bean
-    public RateLimiter rateLimiter(){
-        return RateLimiter.create(2000.0);
-    }
+
 
 
 
